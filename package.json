@@ -1,0 +1,33 @@
+{
+  "name": "fetch-resource",
+  "version": "0.0.1",
+  "description": "A minimal interface for fetching resources from the web",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hubgit/fetch-resource.git"
+  },
+  "author": "Alf Eaton",
+  "license": "ISC",
+  "files": [
+    "index.js"
+  ],
+  "dependencies": {
+    "isomorphic-fetch": "^2.2.1"
+  },
+  "devDependencies": {
+    "jest": "^19.0.2"
+  },
+  "eslintConfig": {
+    "extends": "standard",
+    "env": {
+      "node": true,
+      "browser": true,
+      "jest": true,
+      "jasmine": true
+    }
+  }
+}
