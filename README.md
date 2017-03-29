@@ -1,5 +1,7 @@
 # fetch-resource
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/hubgit/fetch-resource.svg)](https://greenkeeper.io/)
+
 A wrapper for [isomorphic-fetch](https://www.npmjs.com/package/isomorphic-fetch) that makes fetching JSON easier and handles query parameters.
 
 ## Install
