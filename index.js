@@ -1,9 +1,11 @@
 require('isomorphic-fetch')
 
 module.exports = function (url, params) {
-  if (params) url += '?' + Object.keys(params).map(function (key) {
-    return [key, params[key]].map(encodeURIComponent).join('=')
-  }).join('&')
+  if (params) {
+    url += '?' + Object.keys(params).map(function (key) {
+      return [key, params[key]].map(encodeURIComponent).join('=')
+    }).join('&')
+  }
 
   return {
     url: url,
@@ -12,11 +14,11 @@ module.exports = function (url, params) {
         headers: new Headers({
           'Accept': 'application/json'
         })
-      });
+      })
 
       return fetch(request).then(function (response) {
-        if (response.status != 200) {
-          throw new Error('Response code ' + response.status);
+        if (response.status !== 200) {
+          throw new Error('Response code ' + response.status)
         }
 
         return response.json()
