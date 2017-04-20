@@ -9,7 +9,9 @@ module.exports = function (url, params) {
 
   return {
     url: url,
-    json: function () {
+    json: function (options) {
+      options = options || {}
+
       var request = new Request(url, {
         headers: new Headers({
           'Accept': 'application/json'
@@ -21,7 +23,15 @@ module.exports = function (url, params) {
           throw new Error('Response code ' + response.status)
         }
 
-        return response.json()
+        const parse = response.json()
+
+        if (options.data) {
+          return parse.then(function (body) {
+            return options.data(response, body)
+          })
+        }
+
+        return parse
       })
     }
   }

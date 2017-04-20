@@ -38,3 +38,15 @@ test('sets the accept header', async () => {
 
   expect(data.title).toBe('How long is a piece of loop?')
 })
+
+test('extracts data from the response', async () => {
+  const result = resource('https://peerj.com/articles/index.json')
+
+  const data = await result.json({
+    data: (res, body) => {
+      return body._items
+    }
+  })
+
+  expect(data).toHaveLength(10)
+})
