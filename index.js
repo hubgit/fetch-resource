@@ -1,11 +1,11 @@
 require('isomorphic-fetch')
 
 module.exports = function (url, params) {
-  if (params) {
-    url += '?' + Object.keys(params).map(function (key) {
-      return [key, params[key]].map(encodeURIComponent).join('=')
-    }).join('&')
-  }
+  const querystring = Object.keys(params).map(function (key) {
+    return [key, params[key]].map(encodeURIComponent).join('=')
+  }).join('&')
+
+  if (querystring) url += '?' + querystring
 
   return {
     url: url,
@@ -23,16 +23,15 @@ module.exports = function (url, params) {
           throw new Error('Response code ' + response.status)
         }
 
-        const parse = response.json()
-
         if (options.data) {
-          return parse.then(function (body) {
+          return response.json().then(function (body) {
             return options.data(response, body)
           })
         }
 
-        return parse
+        return response.json()
       })
     }
   }
 }
+
