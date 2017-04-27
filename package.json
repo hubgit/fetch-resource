@@ -4,7 +4,10 @@
   "description": "A minimal interface for fetching resources from the web",
   "main": "lib/index.js",
   "scripts": {
-    "test": "jest --runInBand"
+    "test": "jest --runInBand",
+    "clean": "rimraf dist",
+    "prebuild": "npm run clean",
+    "build": "babel lib --out-dir=dist"
   },
   "repository": {
     "type": "git",
@@ -19,8 +22,11 @@
     "isomorphic-fetch": "^2.2.1"
   },
   "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-env": "^1.4.0",
     "jest": "^19.0.2",
     "next-link-header": "^0.1.1",
+    "rimraf": "^2.6.1",
     "standard": "^9.0.2"
   },
   "eslintConfig": {
@@ -35,5 +41,8 @@
       "jest": true,
       "jasmine": true
     }
+  },
+  "babel": {
+    "presets": [["env", {"targets": { "node": 4, "browsers": ["last 2 versions"] }}]]
   }
 }
