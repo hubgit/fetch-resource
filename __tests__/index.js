@@ -1,4 +1,4 @@
-const resource = require('./')
+const resource = require('..')
 
 test('sets a url', () => {
   const result = resource('https://api.github.com/search/repositories')
