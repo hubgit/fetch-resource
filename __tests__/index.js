@@ -1,7 +1,7 @@
 const resource = require('../lib')
 const nextLink = require('next-link-header')
 
-describe('fetch-resource', () => {
+describe('module', () => {
   test('sets a url', () => {
     const result = resource('https://api.github.com/search/repositories')
 
@@ -96,6 +96,7 @@ describe('fetch-resource', () => {
 
     let counter = 0
 
+    // for await (const page of pages) {
     for (const page of pages) {
       const data = await page
       expect(data).toHaveLength(30)
