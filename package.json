@@ -13,7 +13,7 @@
   "author": "Alf Eaton",
   "license": "ISC",
   "files": [
-    "index.js"
+    "lib"
   ],
   "dependencies": {
     "isomorphic-fetch": "^2.2.1"
