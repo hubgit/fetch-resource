@@ -20,11 +20,16 @@
   },
   "devDependencies": {
     "jest": "^19.0.2",
+    "next-link-header": "^0.1.1",
     "standard": "^9.0.2"
   },
   "eslintConfig": {
     "extends": "standard",
+    "parserOptions": {
+      "ecmaVersion": 2017
+    },
     "env": {
+      "es6": true,
       "node": true,
       "browser": true,
       "jest": true,

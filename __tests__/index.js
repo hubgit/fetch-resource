@@ -1,78 +1,107 @@
-const resource = require('..')
+const resource = require('../lib')
+const nextLink = require('next-link-header')
 
-test('sets a url', () => {
-  const result = resource('https://api.github.com/search/repositories')
+describe('fetch-resource', () => {
+  test('sets a url', () => {
+    const result = resource('https://api.github.com/search/repositories')
 
-  expect(result.url)
-    .toBe('https://api.github.com/search/repositories')
-})
-
-test('adds an encoded query string to the url', () => {
-  const result = resource('https://api.github.com/search/repositories', {
-    q: 'language:javascript',
-    sort: 'stars',
-    order: 'desc'
+    expect(result.url)
+      .toBe('https://api.github.com/search/repositories')
   })
 
-  expect(result.url)
-    .toBe('https://api.github.com/search/repositories?q=language%3Ajavascript&sort=stars&order=desc')
-})
+  test('adds an encoded query string to a url', () => {
+    const result = resource()._build('https://api.github.com/search/repositories', {
+      q: 'language:javascript',
+      sort: 'stars',
+      order: 'desc'
+    })
 
-test('fetches an array', async () => {
-  const result = resource('https://api.github.com/search/repositories', {
-    q: 'language:javascript',
-    sort: 'stars',
-    order: 'desc'
+    expect(result)
+      .toBe('https://api.github.com/search/repositories?q=language%3Ajavascript&sort=stars&order=desc')
   })
 
-  const data = await result.json()
+  test('fetches an array', async () => {
+    const result = resource('https://api.github.com/search/repositories', {
+      q: 'language:javascript',
+      sort: 'stars',
+      order: 'desc'
+    })
 
-  expect(data.items).toHaveLength(30)
-  expect(typeof data.total_count).toBe('number')
-})
+    const data = await result.json()
 
-test('fetches an array using "fetch"', async () => {
-  const result = resource('https://api.github.com/search/repositories', {
-    q: 'language:javascript',
-    sort: 'stars',
-    order: 'desc'
+    expect(data.items).toHaveLength(30)
+    expect(typeof data.total_count).toBe('number')
   })
 
-  const data = await result.fetch('json')
+  test('fetches an array using "fetch"', async () => {
+    const result = resource('https://api.github.com/search/repositories', {
+      q: 'language:javascript',
+      sort: 'stars',
+      order: 'desc'
+    })
 
-  expect(data.items).toHaveLength(30)
-  expect(typeof data.total_count).toBe('number')
-})
+    const data = await result.fetch('json')
 
-test('detects the response format', async () => {
-  const result = resource('https://api.github.com/search/repositories', {
-    q: 'language:javascript',
-    sort: 'stars',
-    order: 'desc'
+    expect(data.items).toHaveLength(30)
+    expect(typeof data.total_count).toBe('number')
   })
 
-  const data = await result.fetch()
+  test('detects the response format', async () => {
+    const result = resource('https://api.github.com/search/repositories', {
+      q: 'language:javascript',
+      sort: 'stars',
+      order: 'desc'
+    })
 
-  expect(data.items).toHaveLength(30)
-  expect(typeof data.total_count).toBe('number')
-})
+    const data = await result.fetch()
 
-test('sets the accept header', async () => {
-  const result = resource('https://peerj.com/articles/1')
+    expect(data.items).toHaveLength(30)
+    expect(typeof data.total_count).toBe('number')
+  })
 
-  const data = await result.json()
+  test('sets the accept header', async () => {
+    const result = resource('https://peerj.com/articles/1')
 
-  expect(data.title).toBe('How long is a piece of loop?')
-})
+    const data = await result.json()
 
-test('extracts data from the response', async () => {
-  const result = resource('https://peerj.com/articles/index.json')
+    expect(data.title).toBe('How long is a piece of loop?')
+  })
 
-  const data = await result.json({
-    data: (res, body) => {
-      return body._items
+  test('extracts data from the response', async () => {
+    const result = resource('https://api.github.com/search/repositories', {
+      q: 'language:javascript',
+      sort: 'stars',
+      order: 'desc'
+    })
+
+    const data = await result.json({
+      data: (response, body) => body.items
+    })
+
+    expect(data).toHaveLength(30)
+  })
+
+  test('fetches a paginated array', async () => {
+    const result = resource('https://api.github.com/search/repositories', {
+      q: 'language:javascript',
+      sort: 'stars',
+      order: 'desc'
+    })
+
+    const pages = await result.fetch('json', {
+      data: (response, body) => body.items,
+      next: nextLink,
+      limit: 3
+    })
+
+    let counter = 0
+
+    for (const page of pages) {
+      const data = await page
+      expect(data).toHaveLength(30)
+      counter++
     }
-  })
 
-  expect(data).toHaveLength(10)
+    expect(counter).toBe(3)
+  })
 })
