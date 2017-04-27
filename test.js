@@ -31,6 +31,32 @@ test('fetches an array', async () => {
   expect(typeof data.total_count).toBe('number')
 })
 
+test('fetches an array using "fetch"', async () => {
+  const result = resource('https://api.github.com/search/repositories', {
+    q: 'language:javascript',
+    sort: 'stars',
+    order: 'desc'
+  })
+
+  const data = await result.fetch('json')
+
+  expect(data.items).toHaveLength(30)
+  expect(typeof data.total_count).toBe('number')
+})
+
+test('detects the response format', async () => {
+  const result = resource('https://api.github.com/search/repositories', {
+    q: 'language:javascript',
+    sort: 'stars',
+    order: 'desc'
+  })
+
+  const data = await result.fetch()
+
+  expect(data.items).toHaveLength(30)
+  expect(typeof data.total_count).toBe('number')
+})
+
 test('sets the accept header', async () => {
   const result = resource('https://peerj.com/articles/1')
 
