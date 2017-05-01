@@ -17,15 +17,17 @@ yarn add fetch-resource
 ## Usage
 
 ```js
-var resource = require('fetch-resource')
+const resource = require('fetch-resource')
 
-resource('https://api.github.com/search/repositories', {
+const params = {
   q: 'language:javascript',
   sort: 'stars',
   order: 'desc'
-}).json().then(function (data) {
-  // do something with data
-})
+}
+
+resource('https://api.github.com/search/repositories', params)
+  .fetch('json')
+  .then(function (data) { })
 ```
 
 ### Usage in Next.js
