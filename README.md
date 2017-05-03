@@ -27,7 +27,7 @@ const params = {
 
 resource('https://api.github.com/search/repositories', params)
   .fetch('json')
-  .then(function (data) { })
+  .then(data => { })
 ```
 
 ### Usage in Next.js
