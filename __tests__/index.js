@@ -76,3 +76,9 @@ test('extracts data from the response', async () => {
 
   expect(data).toHaveLength(10)
 })
+
+test('fetches HTML', async () => {
+  const result = await resource('https://www.google.com/').fetch('html')
+
+  expect(result).toEqual(expect.stringMatching(/^<!doctype html>/))
+})
