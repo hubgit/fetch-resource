@@ -19,8 +19,8 @@
     "isomorphic-fetch": "^2.2.1"
   },
   "devDependencies": {
-    "jest": "^19.0.2",
-    "standard": "^9.0.2"
+    "jest": "^21.2.1",
+    "standard": "^10.0.3"
   },
   "eslintConfig": {
     "extends": "standard",
