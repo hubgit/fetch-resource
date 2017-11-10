@@ -39,13 +39,10 @@ const resource = require('fetch-resource')
   // a resource representing the collection
   const collection = resource('https://example.com/items')
   
-  // create a new item and store the location
-  const url = await collection.create({
+  // create a new resource
+  const item = await collection.create({
     title: 'foo'
   })
-  
-  // a resource representing the item
-  const item = resource(url)
   
   // update the item
   await item.update({
