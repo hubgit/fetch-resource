@@ -4,13 +4,13 @@ A wrapper for [isomorphic-fetch](https://www.npmjs.com/package/isomorphic-fetch)
 
 ## Install
 
-```js
+```sh
 npm install fetch-resource
 ```
 
 or
 
-```js
+```sh
 yarn add fetch-resource
 ```
 
@@ -32,7 +32,7 @@ resource('https://api.github.com/search/repositories', params)
 
 ### Usage in Next.js
 
-```js
+```jsx
 import resource from 'fetch-resource'
 
 const Page = ({items}) => (
@@ -48,6 +48,6 @@ Page.getInitialProps = () => {
     q: 'language:javascript',
     sort: 'stars',
     order: 'desc'
-  }).json()
+  }).fetch('json')
 }
 ```

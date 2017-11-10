@@ -25,7 +25,7 @@ test('fetches an array', async () => {
     order: 'desc'
   })
 
-  const data = await result.json()
+  const data = await result.fetch('json')
 
   expect(data.items).toHaveLength(30)
   expect(typeof data.total_count).toBe('number')
@@ -60,7 +60,7 @@ test('detects the response format', async () => {
 test('sets the accept header', async () => {
   const result = resource('https://peerj.com/articles/1')
 
-  const data = await result.json()
+  const data = await result.fetch('json')
 
   expect(data.title).toBe('How long is a piece of loop?')
 })
@@ -68,7 +68,7 @@ test('sets the accept header', async () => {
 test('extracts data from the response', async () => {
   const result = resource('https://peerj.com/articles/index.json')
 
-  const data = await result.json({
+  const data = await result.fetch('json', {
     data: (res, body) => {
       return body._items
     }
