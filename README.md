@@ -30,6 +30,36 @@ resource('https://api.github.com/search/repositories', params)
   .then(data => { })
 ```
 
+### Methods: fetch, update, create, kill
+
+```js
+const resource = require('fetch-resource')
+
+(async function () {
+  // a resource representing the collection
+  const collection = resource('https://example.com/items')
+  
+  // create a new item and store the location
+  const url = await collection.create({
+    title: 'foo'
+  })
+  
+  // a resource representing the item
+  const item = resource(url)
+  
+  // update the item
+  await item.update({
+    title: 'bar'
+  })
+  
+  // fetch the updated data
+  const data = await item.fetch('json')
+  
+  // delete the item
+  await item.kill()
+})()
+```
+
 ### Usage in Next.js
 
 ```jsx
