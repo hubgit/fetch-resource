@@ -1,6 +1,6 @@
 {
   "name": "fetch-resource",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "A minimal interface for fetching resources from the web",
   "main": "lib/index.js",
   "scripts": {
