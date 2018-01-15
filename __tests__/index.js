@@ -1,3 +1,5 @@
+/* global test, expect */
+
 const resource = require('..')
 
 test('sets a url', () => {
@@ -81,4 +83,10 @@ test('fetches HTML', async () => {
   const result = await resource('https://www.google.com/').fetch('html')
 
   expect(result).toEqual(expect.stringMatching(/^<!doctype html>/))
+})
+
+test('fetches XML', async () => {
+  const result = await resource('https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=28814268&retmode=xml').fetch('xml')
+
+  expect(result).toEqual(expect.stringMatching(/^<\?xml version="1.0" \?>/))
 })
