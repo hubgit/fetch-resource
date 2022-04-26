@@ -17,7 +17,7 @@ yarn add fetch-resource
 ## Usage
 
 ```js
-const resource = require('fetch-resource')
+import resource from 'fetch-resource'
 
 const params = {
   q: 'language:javascript',
@@ -33,7 +33,7 @@ resource('https://api.github.com/search/repositories', params)
 ### Methods: fetch, update, create, kill
 
 ```js
-const resource = require('fetch-resource')
+import resource from 'fetch-resource'
 
 (async function () {
   // a resource representing the collection
