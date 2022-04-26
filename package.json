@@ -3,8 +3,9 @@
   "version": "0.3.5",
   "description": "A minimal interface for fetching resources from the web",
   "main": "lib",
+  "type": "module",
   "scripts": {
-    "test": "jest --runInBand"
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest --runInBand"
   },
   "repository": "github:hubgit/fetch-resource",
   "author": "Alf Eaton",
@@ -13,11 +14,11 @@
     "lib"
   ],
   "dependencies": {
-    "isomorphic-fetch": "^2.2.1"
+    "isomorphic-fetch": "^3.0.0"
   },
   "devDependencies": {
-    "jest": "^25.1.0",
-    "standard": "^14.3.1"
+    "jest": "^28.0.1",
+    "standard": "^17.0.0"
   },
   "eslintConfig": {
     "extends": "standard",
